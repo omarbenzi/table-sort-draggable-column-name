@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap 4 Dropdowns within Button Group</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="makeTable.js"></script>
+    <script src="produits.js"></script>
+    <script>
+        window.addEventListener("load", function () {
+            new MakeTable(produits)
+        });
+    </script>
+    <style>
+        .bs-example {
+            margin: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h2>Responsive Table with Bootstrap</h2>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table
+                        summary="This table shows how to create responsive tables using Bootstrap's default functionality"
+                        class="table table-bordered table-hover">
+                        <caption class="text-center">An example of a responsive table based on <a
+                                href="https://getbootstrap.com/css/#tables-responsive" target="_blank">Bootstrap</a>:
+                        </caption>
+                        <thead id="thead">
+                            <tr>
+                                <th>Country</th>
+                                <th>Languages</th>
+                                <th>Population</th>
+                                <th>Median Age</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            <tr>
+                                <td>Argentina</td>
+                                <td>Spanish </td>
+                                <td>41,803,125</td>
+                                <td>31.3</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="text-center">Data retrieved from <a
+                                        href="http://www.infoplease.com/ipa/A0855611.html"
+                                        target="_blank">infoplease</a> and <a
+                                        href="http://www.worldometers.info/world-population/population-by-country/"
+                                        target="_blank">worldometers</a>.</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <!--end of .table-responsive-->
+            </div>
+        </div>
+    </div>
+
+    <p class="p">Demo by George Martsoukos. <a
+            href="http://www.sitepoint.com/responsive-data-tables-comprehensive-list-solutions" target="_blank">See
+            article</a>.</p>
+
+</body>
+</body>
+
+</html>
