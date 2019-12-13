@@ -4,6 +4,7 @@ class MakeTable {
   displayedProducts;
   tableHeader = [];
   sortOrder = "ASC";
+  sortBy = ['id']
 
   constructor(products) {
     if (!products instanceof Array) return;
@@ -11,27 +12,47 @@ class MakeTable {
     this.displayedProducts = this.products;
     this.tableTag = document.querySelector(".table");
 
-    // document.querySelector(".key_word").addEventListener("keyup", e =>
-    //   this.filterByKeyWord(this.products, e.target.value))
-    // document.querySelector(".sort_categorie_nom").addEventListener('click', e =>
-    //   this.sortProducts(this.displayedProducts, this.sortOrder, ['categorie', 'id']))
-
+    document.querySelector(".key_word").addEventListener("keyup", e => {
+      this.filterByKeyWord(this.products, e.target.value)
+    });
+    document.querySelector(".by_cnum").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'id']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    });
+    document.querySelector(".by_cnom").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'nom']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
+    });
+    document.querySelector(".by_cprix").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'prix']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
+    });
+    document.querySelector(".by_nom").addEventListener('click', e => {
+      this.sortBy = ['nom'];
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".by_prix").addEventListener('click', e => {
+      this.sortBy = ['prix']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".by_num").addEventListener('click', e => {
+      this.sortBy = ['id']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".descendant").addEventListener('click', e => {
+      this.sortOrder = "";
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".ascendant").addEventListener('click', e => {
+      this.sortOrder = "ASC";
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
     this.getNeededtableHeaderr(this.products);
     this.init();
-    Object.keys(window).forEach(key => {
-      console.log(key);
-
-      if (/^onclick/.test(key)) {
-        window.addEventListener(key.slice(2), event => {
-          console.log(event.target.id);
-          console.log(event.type);
-        });
-      }
-    });
   }
   init() {
     this.diaplayTable(this.tableHeader, this.displayedProducts);
-    this.dragAndDropManagement(this.tableHeader);
+    this.dragAndDropManagement(this.tableHeader)
   }
 
   filterByKeyWord(products, KeyWord) {
@@ -43,8 +64,7 @@ class MakeTable {
           k =>
             typeof KeyWord === "string" &&
             typeof o[k] === "string" &&
-            o[k].toLowerCase().includes(KeyWord.toLowerCase()) // ||
-          //KeyWord === o[k]
+            o[k].toLowerCase().includes(KeyWord.toLowerCase())
         )
       );
     }
@@ -78,7 +98,7 @@ class MakeTable {
   diaplayTable(tableHeader, products) {
     let listeHTML = "<tr>";
     tableHeader.forEach(e => {
-      listeHTML += `<th id = "${e}">${e}</th>`;
+      listeHTML += `<th id = "${ e }">${ e }</th>`;
     });
     listeHTML += "</tr>";
     products.forEach(critaria => {
@@ -96,18 +116,18 @@ class MakeTable {
     tableHeader.forEach(id => {
       element = document.getElementById(id);
       element.setAttribute("draggable", true);
-      element.addEventListener("dragstart", function(evt) {
+      element.addEventListener("dragstart", function (evt) {
         evt.dataTransfer.setData("source", evt.target.id);
         evt.target.style.backgroundColor = "gray";
       });
-      element.addEventListener("drag", function(evt) {
+      element.addEventListener("drag", function (evt) {
         evt.target.style.opacity = 0;
       });
-      element.addEventListener("dragend", function(evt) {
+      element.addEventListener("dragend", function (evt) {
         evt.target.style.opacity = 1;
         evt.target.style.backgroundColor = "";
       });
-      element.addEventListener("dragover", function(evt) {
+      element.addEventListener("dragover", function (evt) {
         evt.preventDefault();
       });
       element.addEventListener("drop", evt => {

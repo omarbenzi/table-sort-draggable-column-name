@@ -19,7 +19,6 @@ input {
   color: #111;
   text-decoration: none;
   padding: 0.8em 1.8em;
-  text-transform: uppercase;
   border-bottom: 4px #aaa solid;
   box-shadow: 1px -1px -1px 1px #000, -1px 1px -1px 1px #fff, 0 0 6px 3px #fff;
   border-radius: 6px;

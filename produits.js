@@ -1,16 +1,16 @@
 var produits = [
   {
-    id: 0,
-    nom: "Couche Huggies",
-    description: "Couche de marque Huggies",
-    prix: 30.55,
-    categorie: "b\u00e9b\u00e9"
-  },
-  {
     id: 1,
     nom: "Couche Pampers",
     description: "Couche de marque Pampers",
     prix: 31.55,
+    categorie: "b\u00e9b\u00e9"
+  },
+  {
+    id: 0,
+    nom: "Couche Huggies",
+    description: "Couche de marque Huggies",
+    prix: 30.55,
     categorie: "b\u00e9b\u00e9"
   },
   {

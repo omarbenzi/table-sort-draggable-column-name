@@ -1,48 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
 
-    <script src="makeTable.js"></script>
-    <script src="produits.js"></script>
-    <link rel="stylesheet" href="style.css" />
-    <script>
-      window.addEventListener("load", function() {
-        new MakeTable(produits);
-      });
-    </script>
-  </head>
-  <!-- la navigation coontient du code qui provient du https://css-tricks.com/targetting-menu-elements-submenus-navigation-bar/ -->
-  <nav>
-    <ul class="nav">
-      <li>
-        <a href="#">critères de tri</a>
-        <ul>
-          <li><a href="#">Numéro</a></li>
-          <li><a href="#">Nom</a></li>
-          <li><a href="#">Prix</a></li>
-          <li>
-            <a href="#">Catégorie</a>
-            <ul>
-              <li><a href="#">Numéro</a></li>
-              <li><a href="#">Nom</a></li>
-              <li><a href="#">Prix</a></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li class="ascendant"><a href="#">Ascendant</a></li>
-      <li></li>
-      <li><a class="Descendant" href="#">Descendant </a></li>
-    </ul>
-    <input
-      class="key_word"
-      type="text"
-      placeholder="Chaine contenu dans les textes"
-    />
-  </nav>
+<head>
+  <meta charset="utf-8" />
 
-  <body>
-    <table class="table"></table>
-  </body>
+  <script src="makeTable.js"></script>
+  <script src="produits.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    window.addEventListener("load", function () {
+      new MakeTable(produits);
+    });
+  </script>
+</head>
+<!-- la navigation coontient du code qui provient du https://css-tricks.com/targetting-menu-elements-submenus-navigation-bar/ -->
+<nav>
+  <ul class="nav">
+    <li>
+      <a href="#">critères de tri</a>
+      <ul>
+        <li class="by_num"><a href="#">Numéro</a></li>
+        <li class="by_nom"><a href="#">Nom</a></li>
+        <li class="by_prix"><a href="#">Prix</a></li>
+        <li>
+          <a href="#">Catégorie</a>
+          <ul>
+            <li class="by_cnum"><a href="#">Numéro</a></li>
+            <li class="by_cnom"><a href="#">Nom</a></li>
+            <li class="by_cprix"><a href="#">Prix</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="ascendant"><a href="#">Ascendant</a></li>
+    <li></li>
+    <li><a class="descendant" href="#">Descendant </a></li>
+  </ul>
+  <input class="key_word" type="text" placeholder="Chaine contenu dans les textes" />
+</nav>
+
+<body>
+  <div class="critaires"><span></span></div>
+  <table class="table"></table>
+</body>
+
 </html>
