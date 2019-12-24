@@ -6,10 +6,11 @@
 
   <script src="makeTable.js"></script>
   <script src="produits.js"></script>
+  <script src="IndexedDB.class.js"></script>
   <link rel="stylesheet" href="style.css" />
   <script>
     window.addEventListener("load", function () {
-      new MakeTable(produits);
+      new MakeTable(produits, new IndexedDB('DB_NAME', 'TABLE_PREFERENCES', 'key',2));
     });
   </script>
 </head>
