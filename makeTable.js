@@ -4,11 +4,12 @@ class MakeTable {
   products;
   displayedProducts;
   tableHeader = [];
-  sortOrder;
-  sortBy;
+  sortOrder = "ASC";;
+  sortBy = ['id'];
   saveParameters(indexedDB) {
     let objetToSave = {};
     objetToSave['tableHeader'] = this.tableHeader
+    objetToSave['keyWordInput'] = this.keyWordInput
     objetToSave['sortOrder'] = this.sortOrder
     objetToSave['sortBy'] = this.sortBy
     indexedDB.putContentDB('test', JSON.stringify(objetToSave)).then(() => console.log('parametres enregistrés'))
@@ -16,57 +17,64 @@ class MakeTable {
 
   getSavedParameters(indexedDB) {
     return new Promise((resolve, reject) => {
-      indexedDB.getContentDB('test').then(c =>resolve(c))
+      indexedDB.getContentDB('test').then(c => resolve(c))
     })
   }
   constructor(products, indexedDB) {
+    if (!products instanceof Array) return;
     this.indexedDB = indexedDB;
     this.products = products;
-    if (!products instanceof Array) return;
+    this.displayedProducts = this.products;
+    this.tableTag = document.querySelector(".table");
+    document.querySelector(".key_word").addEventListener("keyup", e => {
+      this.keyWordInput = e.target.value
+      this.filterByKeyWord(this.products, e.target.value)
+    });
+    document.querySelector(".by_cnum").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'id']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    });
+    document.querySelector(".by_cnom").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'nom']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
+    });
+    document.querySelector(".by_cprix").addEventListener('click', e => {
+      this.orderBy = ['categorie', 'prix']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
+    });
+    document.querySelector(".by_nom").addEventListener('click', e => {
+      this.sortBy = ['nom'];
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".by_prix").addEventListener('click', e => {
+      this.sortBy = ['prix']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".by_num").addEventListener('click', e => {
+      this.sortBy = ['id']
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".descendant").addEventListener('click', e => {
+      this.sortOrder = "DESC";
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
+    document.querySelector(".ascendant").addEventListener('click', e => {
+      this.sortOrder = "ASC";
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+    })
     this.getSavedParameters(this.indexedDB).then(c => {
-      this.tableHeader = c['tableHeader'] || this.getNeededtableHeader(this.products)
-      this.sortOrder = c['sortOrder'] || "ASC";
-      this.sortBy = c['sortBy'] || ['id'];
-      this.displayedProducts = this.products;
-      this.tableTag = document.querySelector(".table");
-
-      document.querySelector(".key_word").addEventListener("keyup", e => {
-        this.filterByKeyWord(this.products, e.target.value)
-      });
-      document.querySelector(".by_cnum").addEventListener('click', e => {
-        this.orderBy = ['categorie', 'id']
+      if (c) {
+        this.keyWordInput = c['keyWordInput']
+        document.querySelector(".key_word").value = this.keyWordInput
+        this.tableHeader = c['tableHeader'];
+        this.sortOrder = c['sortOrder'];
+        this.sortBy = c['sortBy']
         this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      });
-      document.querySelector(".by_cnom").addEventListener('click', e => {
-        this.orderBy = ['categorie', 'nom']
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
-      });
-      document.querySelector(".by_cprix").addEventListener('click', e => {
-        this.orderBy = ['categorie', 'prix']
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.orderBy)
-      });
-      document.querySelector(".by_nom").addEventListener('click', e => {
-        this.sortBy = ['nom'];
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      })
-      document.querySelector(".by_prix").addEventListener('click', e => {
-        this.sortBy = ['prix']
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      })
-      document.querySelector(".by_num").addEventListener('click', e => {
-        this.sortBy = ['id']
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      })
-      document.querySelector(".descendant").addEventListener('click', e => {
-        this.sortOrder = "DESC";
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      })
-      document.querySelector(".ascendant").addEventListener('click', e => {
-        this.sortOrder = "ASC";
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      })
-      //this.getNeededtableHeader(this.products);
-      this.init();
+        this.filterByKeyWord(this.products, this.keyWordInput)
+      } else {
+        this.tableHeader = this.getNeededtableHeader(this.products);
+        this.init();
+      }
     })
   }
   init() {
