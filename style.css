@@ -55,9 +55,8 @@ input::-webkit-input-placeholder {
 .nav li {
   position: relative;
 }
-.nav > li {
+.nav > li  {
   float: left;
-  border-bottom: 4px #aaa solid;
   margin-right: 1px;
 }
 .nav > li > a {
@@ -139,9 +138,9 @@ input::-webkit-input-placeholder {
   right: 10px;
 }
 
-.ascendant {
+/* .ascendant  {
   margin-left: 120px;
-}
+} */
 
 table {
   font-family: arial, sans-serif;
@@ -161,4 +160,11 @@ th {
 
 tr:nth-child(even) {
   background-color: #dddddd;
+}
+.critaires{
+  max-width: 28%;
+  font-size: 20px;
+}
+.critaires span{
+  margin-left: 10px;
 }

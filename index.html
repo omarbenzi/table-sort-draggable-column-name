@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="style.css" />
   <script>
     window.addEventListener("load", function () {
-      new MakeTable(produits, new IndexedDB('DB_NAME', 'TABLE_PREFERENCES', 'key',2));
+      new MakeTable(produits, new IndexedDB('DB_NAME', 'TABLE_PREFERENCES', 'key', 2));
     });
   </script>
 </head>
@@ -20,28 +20,29 @@
     <li>
       <a href="#">critères de tri</a>
       <ul>
-        <li class="by_num"><a href="#">Numéro</a></li>
-        <li class="by_nom"><a href="#">Nom</a></li>
-        <li class="by_prix"><a href="#">Prix</a></li>
+        <li><a class=" critere" data-param="id" href="#">Numéro</a>
+          <li />
+        <li><a class=" critere" data-param="nom" href="#">Nom</a></li>
+        <li><a class=" critere" data-param="prix" href="#">Prix</a></li>
         <li>
           <a href="#">Catégorie</a>
           <ul>
-            <li class="by_cnum"><a href="#">Numéro</a></li>
-            <li class="by_cnom"><a href="#">Nom</a></li>
-            <li class="by_cprix"><a href="#">Prix</a></li>
+            <li><a class=" critere" data-param="categorie,id" href="#">Numéro</a></li>
+            <li><a class=" critere" data-param="categorie,nom" href="#">Nom</a></li>
+            <li><a class=" critere" data-param="categorie,prix" href="#">Prix</a></li>
           </ul>
         </li>
       </ul>
     </li>
-    <li class="ascendant"><a href="#">Ascendant</a></li>
-    <li></li>
-    <li><a class="descendant" href="#">Descendant </a></li>
+    <li><a class="ascendant order" data-param="ASC" href="#">Ascendant</a></li>
+
+    <li><a class="descendant order" data-param="DESC" href="#">Descendant </a></li>
   </ul>
   <input class="key_word" type="text" placeholder="Chaine contenu dans les textes" />
 </nav>
 
 <body>
-  <div class="critaires"><span></span></div>
+  <div class="critaires">critère(s) de tri:<span> </span></div>
   <table class="table"></table>
 </body>
 

@@ -39,7 +39,7 @@ class IndexedDB {
                     resolve();
                 };
                 this.request.onerror = e => reject("open erreur: " + e.target.error);
-
+                
             } else {
                 reject("IndexedDB n'est pas pris en charge");
             }
@@ -59,7 +59,6 @@ class IndexedDB {
     putContentDB(key, val) {
         return new Promise((resolve, reject) => {
             this.openContentDB().then(() => {
-                console.log(this.DB_STORE_NAME);
                 this.trans = this.db.transaction([this.DB_STORE_NAME], "readwrite");
                 this.store = this.trans.objectStore(this.DB_STORE_NAME);
                 this.request = this.store.put({
