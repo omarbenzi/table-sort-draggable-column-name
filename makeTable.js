@@ -21,7 +21,6 @@ class MakeTable {
         this.sortOrder = c['sortOrder'];
         this.sortBy = c['sortBy']
         this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-        this.filterByKeyWord(this.products, this.keyWordInput)
       } else {
         this.tableHeader = this.getNeededtableHeader(this.products);
         this.init();
