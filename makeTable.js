@@ -5,8 +5,8 @@ class MakeTable {
   critariaTag;
   displayedProducts;
   tableHeader = [];
-  sortOrder = "ASC";;
-  sortBy = ['id'];
+  sortOrder;
+  sortBy;
 
   constructor(products, indexedDB) {
     if (!products instanceof Array) return;
@@ -16,15 +16,11 @@ class MakeTable {
     this.tableTag = document.querySelector(".table");
     this.critariaTag = document.querySelector(".critaires span")
     this.getSavedParameters(this.indexedDB).then(c => {
-      if (c) {
-        this.tableHeader = c['tableHeader'];
-        this.sortOrder = c['sortOrder'];
-        this.sortBy = c['sortBy']
-        this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
-      } else {
-        this.tableHeader = this.getNeededtableHeader(this.products);
-        this.init();
-      }
+      this.tableHeader = c['tableHeader'] ? c['tableHeader'] : this.getNeededtableHeader(this.products);
+      this.sortOrder = c['sortOrder'] ? c['sortOrder'] : "ASC";
+      this.sortBy = c['sortBy'] ? c['sortBy'] : ['id'];
+      this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
+      this.init();
       this.inputListenerManagement()
     })
   }
@@ -42,7 +38,6 @@ class MakeTable {
       this.displayedProducts = products.filter(o =>
         Object.keys(o).some(
           k =>
-            typeof KeyWord === "string" &&
             typeof o[k] === "string" &&
             o[k].toLowerCase().includes(KeyWord.toLowerCase())
         )
@@ -53,7 +48,7 @@ class MakeTable {
 
   sortProducts(products, sortOrder, sortBy) {
     this.critariaTag.innerHTML = ""
-    this.critariaTag.innerHTML = sortBy.toString()
+    this.critariaTag.innerHTML = sortBy.map(x => x == 'id' ? x = 'Numéro' : x).toString()
     this.displayedProducts = products.sort((g, d) => {
       let ret = sortOrder == "ASC" ? 1 : -1;
       for (let critaria in sortBy) {
@@ -83,7 +78,7 @@ class MakeTable {
   diaplayTable(tableHeader, products) {
     let listeHTML = "<tr>";
     tableHeader.forEach(e => {
-      listeHTML += `<th id = "${e}">${e}</th>`;
+      listeHTML += `<th id = "${e}">${e == 'id' ? 'Numéro' : e.charAt(0).toUpperCase() + e.slice(1)}</th>`;
     });
     listeHTML += "</tr>";
     products.forEach(critaria => {
@@ -134,13 +129,6 @@ class MakeTable {
     this.init();
   }
 
-  saveParameters(indexedDB) {
-    let objetToSave = {};
-    objetToSave['tableHeader'] = this.tableHeader
-    objetToSave['sortOrder'] = this.sortOrder
-    objetToSave['sortBy'] = this.sortBy
-    indexedDB.putContentDB('test', JSON.stringify(objetToSave)).then(() => console.log('parametres enregistrés'))
-  }
 
   inputListenerManagement() {
     window.addEventListener('click', (e) => {
@@ -150,6 +138,9 @@ class MakeTable {
       }
       if (e.target.classList.contains('order')) {
         this.sortOrder = e.target.getAttribute('data-param')
+        document.querySelectorAll('.order').forEach(element => {
+          element.classList.toggle("selected");
+        });
         this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy)
       }
     });
@@ -157,6 +148,14 @@ class MakeTable {
       this.keyWordInput = e.target.value
       this.filterByKeyWord(this.products, e.target.value)
     });
+  }
+
+  saveParameters(indexedDB) {
+    let objetToSave = {};
+    objetToSave['tableHeader'] = this.tableHeader
+    objetToSave['sortOrder'] = this.sortOrder
+    objetToSave['sortBy'] = this.sortBy
+    indexedDB.putContentDB('test', JSON.stringify(objetToSave)).then(() => console.log('parametres enregistrés'))
   }
 
   getSavedParameters(indexedDB) {

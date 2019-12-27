@@ -168,3 +168,8 @@ tr:nth-child(even) {
 .critaires span{
   margin-left: 10px;
 }
+
+.selected{
+  color: orange !important;
+}
+
