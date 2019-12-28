@@ -1,3 +1,4 @@
+
 class IndexedDB {
     DB_NAME;
     DB_STORE_NAME;
@@ -7,7 +8,6 @@ class IndexedDB {
     store;
     request;
     trans;
-
     constructor(DB_NAME, DB_STORE_NAME, KEY, VERSION) {
         this.DB_NAME = DB_NAME;
         this.DB_STORE_NAME = DB_STORE_NAME;
@@ -18,7 +18,6 @@ class IndexedDB {
      * méthode openContentDB
      * initialise indexedDB
      */
-
     openContentDB() {
         return new Promise((resolve, reject) => {
             if (this.db != null) {
@@ -39,13 +38,9 @@ class IndexedDB {
                     resolve();
                 };
                 this.request.onerror = e => reject("open erreur: " + e.target.error);
-                
             } else {
                 reject("IndexedDB n'est pas pris en charge");
             }
-
-
-
         });
     }
 
@@ -70,8 +65,6 @@ class IndexedDB {
             })
         });
     }
-
-
     /**
      * méthode getContentDB
      * clé de lecture = Content

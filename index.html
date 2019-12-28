@@ -3,18 +3,16 @@
 
 <head>
   <meta charset="utf-8" />
-
-  <script src="makeTable.js"></script>
+  <script src="GererProduits.class.js"></script>
   <script src="produits.js"></script>
   <script src="IndexedDB.class.js"></script>
   <link rel="stylesheet" href="style.css" />
   <script>
     window.addEventListener("load", function () {
-      new MakeTable(produits, new IndexedDB('DB_NAME', 'TABLE_PREFERENCES', 'key', 2));
+      new GererProduits(produits, new IndexedDB('DB_NAME', 'TABLE_PREFERENCES', 'key', 2));
     });
   </script>
 </head>
-<!-- la navigation coontient du code qui provient du https://css-tricks.com/targetting-menu-elements-submenus-navigation-bar/ -->
 <nav>
   <ul class="nav">
     <li>
