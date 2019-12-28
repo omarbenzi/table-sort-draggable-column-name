@@ -112,8 +112,8 @@ class GererProduits {
     listeHTML += "</tr>";
     products.forEach(product => {
       listeHTML += "<tr>";
-      tableHeader.forEach(data => {
-        listeHTML += "<td>" + product[data] + "</td>";
+      tableHeader.forEach(key => {
+        listeHTML += "<td>" + product[key] + "</td>";
       });
       listeHTML += "</tr>";
     });
