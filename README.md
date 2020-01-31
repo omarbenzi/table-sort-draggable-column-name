@@ -2,4 +2,4 @@
 table-sort-draggable-column-name
 for educational purpose
 
-//comments in french!
+//comments are in french!
