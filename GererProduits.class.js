@@ -20,16 +20,16 @@ class GererProduits {
     this.displayedProducts = this.products;
     this.tableTag = document.querySelector(".table");// tag HTML parent du tableau 
     this.critariaTag = document.querySelector(".critaires span") // tag HTML pour afficher les critere 
-    this.getSavedParameters(this.indexedDB).then(c => {  // l'interogation de la base de donn
+    this.getSavedParameters(this.indexedDB).then(c => {  // l'interogation de la base de donnee
       this.tableHeader = c['tableHeader'] ? c['tableHeader'] : this.getNeededtableHeader(this.products); //obtention des nom de colonnes  
       this.sortOrder = c['sortOrder'] ? c['sortOrder'] : "ASC";
       this.sortBy = c['sortBy'] ? c['sortBy'] : ['id'];
       this.sortProducts(this.displayedProducts, this.sortOrder, this.sortBy) // cette fonction va appeler la fonction init()
-      this.inputListenerManagement()// l'jout des listener sur les bouttons 
+      this.inputListenerManagement()// l'ajout des listener sur les bouttons 
     }).catch(e => console.error(e))
   }
   /**
-  *fait apple à d'autres fonctions 
+  *fait appelle à d'autres fonctions 
   */
   init() {
     this.diaplayTable(this.tableHeader, this.displayedProducts);
@@ -55,7 +55,7 @@ class GererProduits {
   }
   /**
    * filter dans les texts du tableau produit 
-   * cette fonction met à jour la propreité displayedProducts et apple init()
+   * cette fonction met à jour la propreité displayedProducts et appelle init()
    * @param products    le tableau des prouits 
    * @param KeyWord    le mot cle recherché dans les text  
    * 
@@ -75,7 +75,7 @@ class GererProduits {
   }
   /**
   * tri le tableau des produit 
-  * cette fonction met à jour la propreité displayedProducts et apple init()
+  * cette fonction met à jour la propreitée displayedProducts et appelle init()
   * @param products    le tableau des prouits 
   * @param sortOrder    descendant ou ascendant  
   * @param sortBy    tableau des citeres de tri
@@ -106,7 +106,7 @@ class GererProduits {
   diaplayTable(tableHeader, products) {
     let listeHTML = "<tr>";
     tableHeader.forEach(e => {
-      // 'retouche du code'on remplace le mot id par Numéro et mettre en majuscule la premiere letrre 
+      // 'retouche du code' on remplace le mot id par Numéro et mettre en majuscule la premiere letrre 
       listeHTML += `<th id = "${e}">${e == 'id' ? 'Numéro' : e.charAt(0).toUpperCase() + e.slice(1)}</th>`;
     });
     listeHTML += "</tr>";
@@ -139,7 +139,7 @@ class GererProduits {
 
   /**
     * cette fonction gere le drag et drop des nom de colonnes 
-    * cette fonction fait apple à la fonction updateTableHeader à la fin du drop
+    * cette fonction fait appelle à la fonction updateTableHeader à la fin du drop
     * @param tableHeader  tableau des noms des colonnes 
     */
   dragAndDropManagement(tableHeader) {
@@ -165,13 +165,13 @@ class GererProduits {
         evt.preventDefault();
         source = document.getElementById(evt.dataTransfer.getData("source"));
         target = evt.currentTarget;
-        this.updateTableHeader(target.id, source.id); // l'apple à la fonction updateTableHeader
+        this.updateTableHeader(target.id, source.id); // l'appelle à la fonction updateTableHeader
       });
     });
   }
   /**
-  * cette fonction mets è jour le tableau des noms des colonnes apres le drag and drop 
-  * cette fonction fait apple à la fonction init()
+  * cette fonction mets à jour le tableau des noms des colonnes apres le drag and drop 
+  * cette fonction fait appelle à la fonction init()
   * @param target  la nouvelle position du nom de la colonne dans le tableau
   * @param source  provenance du nom de la colonne 
   */
@@ -214,7 +214,7 @@ class GererProduits {
     objetToSave['tableHeader'] = this.tableHeader
     objetToSave['sortOrder'] = this.sortOrder
     objetToSave['sortBy'] = this.sortBy
-    indexedDB.putContentDB('test', JSON.stringify(objetToSave)) // l'apple à la methode indexedDB.putContentDB()
+    indexedDB.putContentDB('test', JSON.stringify(objetToSave)) // l'appelle à la methode indexedDB.putContentDB()
       .then(console.log('parametres enregistrés'))
       .catch(e => console.error(e))
   }
